@@ -5,7 +5,7 @@ import 'package:flutter_b23_firebase/views/get_all_task.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
