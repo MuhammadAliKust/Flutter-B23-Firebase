@@ -47,7 +47,6 @@ class _UpdatePriorityViewState extends State<UpdatePriorityView> {
                             PriorityModel(
                               docId: widget.model.docId.toString(),
                               name: nameController.text,
-                              createdAt: DateTime.now().millisecondsSinceEpoch,
                             ),
                           )
                           .then((val) {
