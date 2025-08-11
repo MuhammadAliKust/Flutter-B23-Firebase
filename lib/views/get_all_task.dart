@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_b23_firebase/models/task.dart';
 import 'package:flutter_b23_firebase/services/task.dart';
 import 'package:flutter_b23_firebase/views/create_task.dart';
+import 'package:flutter_b23_firebase/views/get_all_priorities.dart';
 import 'package:flutter_b23_firebase/views/get_completed_task.dart';
 import 'package:flutter_b23_firebase/views/get_incompleted_task.dart';
 import 'package:flutter_b23_firebase/views/update_task.dart';
@@ -16,6 +17,15 @@ class GetAllTaskView extends StatelessWidget {
       appBar: AppBar(
         title: Text("Get All Task"),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GetAllPriorities()),
+              );
+            },
+            icon: Icon(Icons.category),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
