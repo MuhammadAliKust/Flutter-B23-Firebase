@@ -30,6 +30,20 @@ class PriorityServices {
         );
   }
 
+  ///Get All Priorities
+  Future<List<PriorityModel>> getAllPrioritiesViaFuture() {
+    return FirebaseFirestore.instance
+        .collection(kPriorityCollection)
+        .get()
+        .then(
+          (priorityList) => priorityList.docs
+              .map(
+                (priorityJson) => PriorityModel.fromJson(priorityJson.data()),
+              )
+              .toList(),
+        );
+  }
+
   ///Update Priority
   Future updatePriority(PriorityModel model) async {
     return await FirebaseFirestore.instance
