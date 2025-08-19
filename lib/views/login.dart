@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_b23_firebase/services/auth.dart';
+import 'package:flutter_b23_firebase/views/register.dart';
+import 'package:flutter_b23_firebase/views/reset_pwd.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -79,10 +81,26 @@ class _LoginViewState extends State<LoginView> {
                 ),
           SizedBox(height: 20),
 
-          ElevatedButton(onPressed: () {}, child: Text("Go to SignUp")),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterView()),
+              );
+            },
+            child: Text("Go to SignUp"),
+          ),
           SizedBox(height: 20),
 
-          ElevatedButton(onPressed: () {}, child: Text("Go to Reset Password")),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ResetPasswordView()),
+              );
+            },
+            child: Text("Go to Reset Password"),
+          ),
         ],
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_b23_firebase/models/user.dart';
 import 'package:flutter_b23_firebase/services/auth.dart';
+import 'package:flutter_b23_firebase/services/user.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -9,6 +11,9 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController pwdController = TextEditingController();
   bool isLoading = false;
@@ -19,8 +24,26 @@ class _RegisterViewState extends State<RegisterView> {
       appBar: AppBar(title: Text("Register")),
       body: Column(
         children: [
-          TextField(controller: emailController),
-          TextField(controller: pwdController),
+          TextField(
+            controller: nameController,
+            decoration: InputDecoration(label: Text("Name")),
+          ),
+          TextField(
+            controller: phoneController,
+            decoration: InputDecoration(label: Text("Phone")),
+          ),
+          TextField(
+            controller: addressController,
+            decoration: InputDecoration(label: Text("Address")),
+          ),
+          TextField(
+            controller: emailController,
+            decoration: InputDecoration(label: Text("Email")),
+          ),
+          TextField(
+            controller: pwdController,
+            decoration: InputDecoration(label: Text("Password")),
+          ),
           SizedBox(height: 20),
           isLoading
               ? Center(child: CircularProgressIndicator())
@@ -46,7 +69,18 @@ class _RegisterViewState extends State<RegisterView> {
                             email: emailController.text,
                             password: pwdController.text,
                           )
-                          .then((val) {
+                          .then((user) async {
+                            await UserServices().createUser(
+                              UserModel(
+                                docId: user.uid.toString(),
+                                name: nameController.text,
+                                phone: phoneController.text,
+                                address: addressController.text,
+                                email: emailController.text,
+                                createdAt:
+                                    DateTime.now().millisecondsSinceEpoch,
+                              ),
+                            );
                             isLoading = false;
                             setState(() {});
                             showDialog(
