@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_b23_firebase/models/task.dart';
+import 'package:flutter_b23_firebase/providers/user.dart';
 import 'package:flutter_b23_firebase/services/task.dart';
 import 'package:flutter_b23_firebase/views/create_task.dart';
 import 'package:flutter_b23_firebase/views/get_all_priorities.dart';
@@ -13,6 +16,8 @@ class GetAllTaskView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+    log(userProvider.getUser().docId.toString());
     return Scaffold(
       appBar: AppBar(
         title: Text("Get All Task"),
@@ -56,7 +61,9 @@ class GetAllTaskView extends StatelessWidget {
         child: Icon(Icons.add),
       ),
       body: StreamProvider.value(
-        value: TaskServices().getAllTask(),
+        value: TaskServices().getAllTask(
+          userProvider.getUser().docId.toString(),
+        ),
         initialData: [TaskModel()],
         builder: (context, child) {
           List<TaskModel> taskList = context.watch<List<TaskModel>>();
@@ -64,7 +71,7 @@ class GetAllTaskView extends StatelessWidget {
             itemCount: taskList.length,
             itemBuilder: (context, i) {
               return ListTile(
-                leading: Icon(Icons.task),
+                leading: Image.network(taskList[i].image.toString()),
                 title: Text(taskList[i].title.toString()),
                 subtitle: Text(taskList[i].description.toString()),
                 trailing: Row(
